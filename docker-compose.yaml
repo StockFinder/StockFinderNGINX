@@ -1,0 +1,35 @@
+version: "3.5"
+
+networks:
+  remoteproxy:
+    name: remoteproxy
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.20.0.0/24
+
+services:
+
+  stockfinder_images:
+    image: flashspys/nginx-static
+    container_name: stockfinder_images
+    ports:
+      - 4444:80
+    networks:
+      remoteproxy:
+        ipv4_address: '10.20.0.221'
+    labels:
+      traefik.enable: true
+      traefik.http.routers.stockfinder_images.rule: Host(`images.stockfinder.tech`)
+      traefik.http.routers.stockfinder_images.entrypoints: http
+      traefik.http.middlewares.stockfinder_images-https-redirect.redirectscheme.scheme: https
+      traefik.http.routers.stockfinder_images.middlewares: stockfinder_images-https-redirect
+      traefik.http.routers.stockfinder_images-secure.entrypoints: https
+      traefik.http.routers.stockfinder_images-secure.rule: Host(`images.stockfinder.tech`)
+      traefik.http.routers.stockfinder_images-secure.tls: true
+      traefik.http.routers.stockfinder_images-secure.service: stockfinder_images
+      traefik.http.services.stockfinder_images.loadbalancer.server.port: 80
+    volumes:
+      - ./nginx/static/uuid_products:/static
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+

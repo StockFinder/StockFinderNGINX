@@ -1,0 +1,3 @@
+[submodule "nginx/static/uuid_products"]
+	path = nginx/static/uuid_products
+	url = https://github.com/MDaniel592/uuid_products
