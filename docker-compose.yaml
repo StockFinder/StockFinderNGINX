@@ -2,11 +2,7 @@ version: "3.5"
 
 networks:
   remoteproxy:
-    name: remoteproxy
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.20.0.0/24
+    external: true
 
 services:
 
@@ -14,10 +10,10 @@ services:
     image: flashspys/nginx-static
     container_name: stockfinder_images
     ports:
-      - 10.20.0.1:4444:80
+      - 200.20.0.1:4444:80
     networks:
       remoteproxy:
-        ipv4_address: '10.20.0.221'
+        ipv4_address: '200.20.0.221'
     deploy:
       resources:
         limits:

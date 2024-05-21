@@ -4,7 +4,7 @@ from asyncio.log import logger
 import docker
 from git import Repo
 
-PATH_OF_GIT_REPO = "/opt/docker/web_stack/StockFinderWeb/nginx/static/uuid_products"
+PATH_OF_GIT_REPO = "/opt/docker/StockFinderModules/ImagesWebServer/NGINX/nginx/static/uuid_products"
 
 
 def get_stockfinder_container(running_container):
