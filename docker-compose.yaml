@@ -30,10 +30,10 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.stockfinder_images.rule: Host(`images.stockfinder.tech`)
-      traefik.http.routers.stockfinder_images.entrypoints: http
-      traefik.http.middlewares.stockfinder_images-https-redirect.redirectscheme.scheme: https
+      traefik.http.routers.stockfinder_images.entrypoints: http-ext
+      traefik.http.middlewares.stockfinder_images-https-redirect.redirectscheme.scheme: https-ext
       traefik.http.routers.stockfinder_images.middlewares: stockfinder_images-https-redirect
-      traefik.http.routers.stockfinder_images-secure.entrypoints: https
+      traefik.http.routers.stockfinder_images-secure.entrypoints: https-ext
       traefik.http.routers.stockfinder_images-secure.rule: Host(`images.stockfinder.tech`)
       traefik.http.routers.stockfinder_images-secure.tls: true
       traefik.http.routers.stockfinder_images-secure.service: stockfinder_images
