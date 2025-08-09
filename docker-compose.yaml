@@ -8,8 +8,7 @@ services:
     image: flashspys/nginx-static
     container_name: stockfinder_images
     ports:
-      # - 200.20.0.1:4444:80
-      - 0.0.0.0:4444:80
+      - 200.20.0.1:4444:80
     networks:
       remoteproxy:
         ipv4_address: '200.20.0.221'
@@ -26,17 +25,13 @@ services:
         delay: 5s
         max_attempts: 3
         window: 600s
-    # labels:
-    #   traefik.enable: true
-    #   traefik.http.routers.stockfinder_images.rule: Host(`images.stockfinder.tech`)
-    #   traefik.http.routers.stockfinder_images.entrypoints: http-ext
-    #   traefik.http.middlewares.stockfinder_images-https-redirect.redirectscheme.scheme: https-ext
-    #   traefik.http.routers.stockfinder_images.middlewares: stockfinder_images-https-redirect
-    #   traefik.http.routers.stockfinder_images-secure.entrypoints: https-ext
-    #   traefik.http.routers.stockfinder_images-secure.rule: Host(`images.stockfinder.tech`)
-    #   traefik.http.routers.stockfinder_images-secure.tls: true
-    #   traefik.http.routers.stockfinder_images-secure.service: stockfinder_images
-    #   traefik.http.services.stockfinder_images.loadbalancer.server.port: 80
+    labels:
+      traefik.enable: true
+      traefik.http.routers.stockfinder_images-secure.entrypoints: https
+      traefik.http.routers.stockfinder_images-secure.rule: Host(`images.gpufinder.ovh`)
+      traefik.http.routers.stockfinder_images-secure.tls: true
+      traefik.http.routers.stockfinder_images-secure.service: stockfinder_images
+      traefik.http.services.stockfinder_images.loadbalancer.server.port: 80
     volumes:
       - ./nginx/static:/static
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
