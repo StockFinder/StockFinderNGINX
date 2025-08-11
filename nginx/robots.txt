@@ -1,6 +1,6 @@
 ###########################################################
 #
-# Bienvenido a Robots.txt de images.stockfinder.tech
+# Bienvenido a Robots.txt de images.gpufinder.ovh
 #
 ##########################################################
 
